@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-2">
             <span className="font-semibold text-amber-300">University of Eldoret (UoE)</span>
             <span className="text-emerald-400">·</span>
-            <span className="hidden sm:inline text-emerald-200">Flame Tree of Knowledge and Innovation</span>
+            <span className="hidden sm:inline text-emerald-200">Flame of Knowledge and Innovation</span>
             <span className="text-emerald-400">·</span>
             <span className="text-emerald-300 font-mono text-[11px] hidden lg:inline">{currentUser.email || 'student.uoeld.ac.ke'}</span>
           </div>
