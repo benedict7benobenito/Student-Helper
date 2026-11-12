@@ -1,0 +1,6 @@
+{
+  "name": "University of Eldoret Student Portal & Timetable Hub",
+  "description": "Smart student portal & timetable companion for University of Eldoret (UoE). Features Class Rep lecture confirmations, editable course and personal timetables, WhatsApp broadcast notifications, revision notes vault, and direct campus portal links.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
