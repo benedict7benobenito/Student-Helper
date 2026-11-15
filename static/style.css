@@ -30,3 +30,56 @@ table{width:100%;border-collapse:collapse} td,th{padding:10px;border-bottom:1px 
 .msg{padding:10px 13px;border-radius:14px;max-width:85%;font-size:14px}
 .msg.ai{background:#e9e7ff;color:#222} body.dark .msg.ai{background:#2a2a35;color:#fff}
 .msg.user{background:linear-gradient(90deg,#ff6b6b,#feca57);color:#fff;align-self:flex-end}
+
+/* --- MOBILE FIX - Full Screen, Scroll Down, No Tiny Zoom --- */
+* { box-sizing: border-box !important; }
+html, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+@media (max-width: 768px) {
+  body { font-size: 16px !important; }
+  /* Every container / card becomes full width */
+  .container, .card, .box, .content, main, .wrapper, .login-box, .auth-box, .form-box, .dashboard, .portfolio, section, article {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  /* Login card - full screen, not tiny in middle */
+  .login-box, .auth-box {
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  /* Inputs and buttons - big finger-friendly */
+  input, select, textarea, button, .btn {
+    width: 100% !important;
+    font-size: 16px !important;
+    padding: 14px 12px !important;
+    min-height: 48px !important;
+  }
+  /* Nav / tabs - wrap to next line, don't squeeze */
+  .nav, .navbar, header, .tabs, .menu, .topbar {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .nav a, .tabs a, .menu a {
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    flex: 1 1 auto !important;
+    text-align: center !important;
+  }
+  h1 { font-size: 24px !important; line-height: 1.3 !important; }
+  h2 { font-size: 20px !important; }
+  h3 { font-size: 18px !important; }
+  /* Tables and notes - scroll, don't shrink */
+  table { display: block !important; width: 100% !important; overflow-x: auto !important; }
+  img { max-width: 100% !important; height: auto !important; }
+}
