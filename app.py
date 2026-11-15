@@ -10,7 +10,7 @@ app.secret_key = "student-helper-secret-2026"
 GEMINI_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 REP_CODE = "UOE-2026"
 PRESIDENT_CODE = "UNI-EXC-2026"
-DB = "app.db"
+DB = '/tmp/app.db' if os.environ.get('VERCEL') else 'app.db'
 UPLOAD_FOLDER = '/tmp/uploads' if os.environ.get('VERCEL') else 'uploads'
 try:
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
