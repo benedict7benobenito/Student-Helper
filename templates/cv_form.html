@@ -1,0 +1,25 @@
+<!DOCTYPE html><html><head><link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#5f27cd">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Student Helper">
+<link rel="apple-touch-icon" href="/static/icon-192.png"><title>CV Generator</title><link rel="stylesheet" href="/static/style.css"></head><body><div class="box" style="max-width:650px"><h1>📄 Automatic CV Generator</h1><div style="background:#e8fff5;padding:14px;border-radius:12px"><b>What is a CV?</b> Your 1-page professional story. Employers decide in 6 seconds if they call you. A good CV = Name, Goal, Education, Skills, Experience, Referee. We will guide you step-by-step - one question at a time.</div>
+<form method="POST" id="cvForm">
+<div id="step1"><h3>Step 1/6: Your Name & Contacts</h3><p>Write your full official name as on ID.</p><input name="full_name" placeholder="Full Name e.g. Jane Wanjiru" required><input name="phone" placeholder="Phone e.g. 0712345678" required><input name="email" placeholder="Email" required><button type="button" onclick="nextStep(2)">Next → Skills</button></div>
+<div id="step2" style="display:none"><h3>Step 2/6: Your Course</h3><p>What are you studying? Employers want to know.</p><input name="course" placeholder="Course e.g. BEd Arts" value="{{ course }}"><input name="university" placeholder="University" value="{{ university }}"><button type="button" onclick="nextStep(3)">Next → Career Goal</button></div>
+<div id="step3" style="display:none"><h3>Step 3/6: Career Goal</h3><p>In 1-2 lines, what job do you want? Example: "To use my teaching skills to inspire learners..."</p><textarea name="career_goal" placeholder="I am a motivated student seeking..." required></textarea><button type="button" onclick="nextStep(4)">Next → Skills</button></div>
+<div id="step4" style="display:none"><h3>Step 4/6: Skills</h3><p>List 4-6 skills. Example: Communication, Computer, Teamwork, Time Management</p><textarea name="skills" placeholder="Communication, Microsoft Word, Teamwork..." required></textarea><button type="button" onclick="nextStep(5)">Next → Experience</button></div>
+<div id="step5" style="display:none"><h3>Step 5/6: Experience</h3><p>Even attachment, church, volunteer counts! Example: "2025 - Teaching Practice, Eldoret Primary"</p><textarea name="experience" placeholder="2025 - Attachment..." required></textarea><textarea name="education" placeholder="Education: 2024 - Present: UoE, BEd Arts"></textarea><button type="button" onclick="nextStep(6)">Next → Referee</button></div>
+<div id="step6" style="display:none"><h3>Step 6/6: Referee</h3><p>Someone who can confirm you are good. Example: Lecturer, Pastor, Former boss.</p><input name="referee" placeholder="Referee: Dr. John, Lecturer UoE - 0722..." required><button>🎉 Generate My CV →</button></div>
+</form></div><script>function nextStep(n){for(let i=1;i<=6;i++) document.getElementById('step'+i).style.display='none';document.getElementById('step'+n).style.display='block';window.scrollTo(0,0);}</script><script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("/sw.js").then(function(reg){
+      console.log("Student Helper App installed ✅", reg.scope);
+    }).catch(function(err){
+      console.log("App install failed", err);
+    });
+  });
+}
+</script></body></html>

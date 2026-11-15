@@ -1,0 +1,64 @@
+<!DOCTYPE html><html><head><link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#5f27cd">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Student Helper">
+<link rel="apple-touch-icon" href="/static/icon-192.png"><title>Meet The Builder - Benedict Otunga</title><link rel="stylesheet" href="/static/style.css">
+<style>
+.port-hero{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:30px 20px;text-align:center;border-radius:0 0 25px 25px}
+.port-photo{width:140px;height:140px;object-fit:cover;border-radius:50%;border:4px solid #fff}
+.skill{display:inline-block;background:#fff;color:#5f27cd;padding:8px 14px;border-radius:20px;margin:5px;font-weight:bold;font-size:13px}
+.proj{background:#fff;padding:16px;border-radius:14px;margin:10px 0;border-left:5px solid #667eea}
+.wa-big{background:#25D366 !important;color:#fff !important;font-size:16px;padding:14px 20px !important}
+.tagline{background:rgba(255,255,255,0.25);padding:10px;border-radius:12px;font-weight:bold;margin-top:12px}
+</style></head><body>
+<button class="dark-toggle" onclick="toggleDark()">🌙</button>
+<div class="port-hero">
+<img src="/static/benedict.jpg" class="port-photo" onerror="this.src='/static/benedict.jpg.jpeg';this.onerror=null">
+<h1 style="margin:10px 0 0">Benedict Otunga</h1>
+<p style="font-size:16px;margin:5px">🚀 Web Developer | 🤖 AI Automation | 🎬 Video Editing | ✨ Motion Designer</p>
+<p>📍 Eldoret, Kenya | 🎓 University of Eldoret</p>
+<div class="tagline">🎓 Student Helper - By A Student, For Students 🇰🇪<br><small style="font-weight:normal">I built this platform because I understand student life. I build for people like you.</small></div>
+<br>
+<a href="https://wa.me/254140908833?text=Hi%20Benedict!%20I%20saw%20your%20work.%20I%20want%20to%20ask%20about%20a%20project" target="_blank"><button class="wa-big" style="width:auto">📱 Chat Me On WhatsApp - 0140908833</button></a>
+</div>
+<div class="container">
+<div class="card"><h3>👋 About Me</h3>
+<p>Hi, I'm <b>Benedict Otunga</b> - a student at University of Eldoret and a builder who turns ideas into real working websites and apps.</p>
+<p>I built <b>Student Helper</b> - <b>by a student, for students.</b> A full platform for timetables, past papers, AI exam prediction, jobs, CV generator, and campus social. If I can build that for students, I can build yours for your business, school, or church.</p>
+<p><b>My promise:</b> Fast delivery, clean design, works on phone, and I teach you how to use it.</p>
+</div>
+<div class="card"><h3>💪 What I Do</h3>
+<span class="skill">🌐 Web Development</span><span class="skill">🤖 AI Automation</span><span class="skill">🎬 Video Editing</span><span class="skill">✨ Motion Design</span><span class="skill">📣 Digital Marketing</span><span class="skill">💬 Communication</span><span class="skill">🛡️ Ethical Hacking</span><span class="skill">📱 WhatsApp Bots</span>
+</div>
+<div class="card"><h3>🏆 My Projects</h3>
+<div class="proj"><b>🎓 Student Helper - University Platform</b><p>Full system: Login, Roles, Timetable, Past Papers, AI Tutor, AI Exam Predictor, CGPA, Jobs, CV Generator, Campus Social, Presidents Lounge. Built with Python Flask + AI.</p><span style="background:#e8fff5;padding:4px 10px;border-radius:12px;font-size:12px">⭐ Featured Project - By A Student, For Students</span></div>
+<div class="proj"><b>🌐 Business Websites</b><p>Websites for shops, schools, churches, salons - with WhatsApp order button, Google Maps, and gallery.</p></div>
+<div class="proj"><b>🎬 Video Editing & Motion Design</b><p>Reels, TikToks, ads, intros, and posters that make people stop scrolling.</p></div>
+<div class="proj"><b>🤖 AI Automation</b><p>AI chatbots, auto-replies, and tools that save you time.</p></div>
+</div>
+<div class="card"><h3>💰 How Pricing Works</h3>
+<p>I don't put fixed prices here because every project is different.</p>
+<p><b>Chat me on WhatsApp, tell me what you want, and I will give you a fair price for your exact work - no hidden fees.</b></p>
+<p style="font-size:13px;color:#666">Small projects, big systems, videos, posters - just ask.</p>
+</div>
+<div class="card" style="text-align:center"><h3>📞 Let's Work Together</h3>
+<p>Have an idea? Let's build it.</p>
+<a href="https://wa.me/254140908833?text=Hi%20Benedict!%20I%20want%20to%20ask%20about%20a%20project" target="_blank"><button class="wa-big" style="width:auto">📱 WhatsApp: 0140908833 - Ask For Price</button></a><br><br>
+<a href="/dashboard"><button style="width:auto;background:#eee;color:#333">⬅ Back To Student Helper</button></a>
+</div>
+</div>
+<footer><p>© 2026 Benedict Otunga - Built with ❤️ in Eldoret 🇰🇪<br>Student Helper - By A Student, For Students</p></footer>
+<script src="/static/script.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("/sw.js").then(function(reg){
+      console.log("Student Helper App installed ✅", reg.scope);
+    }).catch(function(err){
+      console.log("App install failed", err);
+    });
+  });
+}
+</script></body></html>

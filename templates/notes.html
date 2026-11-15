@@ -1,0 +1,25 @@
+<!DOCTYPE html><html><head><link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#5f27cd">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Student Helper">
+<link rel="apple-touch-icon" href="/static/icon-192.png"><title>Note Summarizer</title><link rel="stylesheet" href="/static/style.css"></head>
+<body><div class="nav"><a href="/">← Back to Dashboard</a></div>
+<div class="container"><div class="card">
+<h1>📝 Note Summarizer</h1>
+<textarea id="notesInput" placeholder="Paste your long notes here..." style="height:200px"></textarea>
+<button onclick="summarizeNotes()">Summarize With AI</button>
+<div id="summaryOut" style="white-space:pre-wrap;margin-top:15px"></div>
+</div></div>
+<script src="/static/script.js"></script><script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("/sw.js").then(function(reg){
+      console.log("Student Helper App installed ✅", reg.scope);
+    }).catch(function(err){
+      console.log("App install failed", err);
+    });
+  });
+}
+</script></body></html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html><html><head><link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#5f27cd">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Student Helper">
+<link rel="apple-touch-icon" href="/static/icon-192.png"><title>Register - Student Helper</title><link rel="stylesheet" href="/static/style.css"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>.search-box{position:relative}.search-box input{width:100%} .suggest{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #ddd;border-radius:10px;max-height:180px;overflow-y:auto;z-index:10;display:none}.suggest div{padding:10px;cursor:pointer;border-bottom:1px solid #eee}.suggest div:hover{background:#eef2ff}</style>
+</head><body>
+<button class="dark-toggle" onclick="toggleDark()">🌙</button>
+<div class="box" style="max-width:520px">
+<h1>🎓 Join Student Helper</h1>
+<p style="text-align:center;color:#666;font-size:13px">By A Student, For Students 🇰🇪<br>All Kenyan Universities - Public + Private</p>
+
+<form method="POST" action="/register" id="regForm">
+<input name="name" placeholder="Full Name e.g. Benedict Otunga" required>
+<input name="email" type="email" placeholder="Email e.g. you@gmail.com" required>
+<input name="whatsapp" placeholder="WhatsApp e.g. 0712345678" required>
+<input name="password" type="password" placeholder="Password (min 4)" required minlength="4">
+<input name="admission" placeholder="Admission No. e.g. SSCI/87687/23" required>
+
+<label style="font-size:13px;font-weight:bold">🏫 University - Type to Search</label>
+<div class="search-box">
+<input id="uniSearch" placeholder="Type e.g. Eldoret, Nairobi, MKU, JKUAT..." autocomplete="off" required>
+<div id="uniSuggest" class="suggest"></div>
+</div>
+<input type="hidden" name="university" id="uniValue" value="UoE">
+<p id="uniShow" style="font-size:13px;background:#e8fff5;padding:8px;border-radius:8px">Selected: <b>University of Eldoret (UoE) - Public</b></p>
+
+<label style="font-size:13px;font-weight:bold">📚 Course - Type to Search</label>
+<div class="search-box">
+<input id="courseSearch" placeholder="Type e.g. Computer Science, Nursing, Law..." autocomplete="off" required>
+<div id="courseSuggest" class="suggest"></div>
+</div>
+<input type="hidden" name="course" id="courseValue" value="BSc Computer Science">
+<p id="courseShow" style="font-size:13px;background:#eef2ff;padding:8px;border-radius:8px">Selected: <b>BSc Computer Science</b></p>
+
+<select name="year" required><option value="1">Year 1</option><option value="2">Year 2</option><option value="3">Year 3</option><option value="4">Year 4</option><option value="5">Year 5</option><option value="6">Year 6</option></select>
+
+<div id="comboWrap" style="display:none">
+<label style="font-size:13px;font-weight:bold">📖 Combination (BEd Only)</label>
+<select name="combination" id="comboSelect"><option value="None">None</option></select>
+</div>
+<input type="hidden" name="combination" id="comboHidden" value="None">
+
+<select name="role" id="roleSelect" required onchange="showCodes()">
+<option value="student">Student</option>
+<option value="class_rep">Class Rep 👑</option>
+<option value="president">University President 👑</option>
+</select>
+
+<div id="repBox" style="display:none;background:#fff3cd;padding:12px;border-radius:12px">
+<p style="font-size:13px">Enter Rep Code - ask Benedict on WhatsApp if you don't have it</p>
+<input name="rep_code" id="repCode" placeholder="Rep Code e.g. UOE-2026">
+<a href="https://wa.me/254140908833?text=Hi%20Benedict!%20I%20need%20Rep%20Code" target="_blank"><button type="button" style="background:#25D366">Request Key on WhatsApp</button></a>
+</div>
+
+<div id="presBox" style="display:none;background:#ffeaa7;padding:12px;border-radius:12px">
+<p style="font-size:13px">Enter President Code</p>
+<input name="president_code" id="presCode" placeholder="President Code">
+<a href="https://wa.me/254140908833?text=Hi%20Benedict!%20I%20need%20President%20Code" target="_blank"><button type="button" style="background:#25D366">Request Key on WhatsApp</button></a>
+</div>
+
+<button>Create Account →</button>
+</form>
+
+<p style="text-align:center;font-size:13px">Already have account? <a href="/login"><b>Login Here →</b></a></p>
+<p style="text-align:center;font-size:12px;color:#888">Can't find your university? Select <b>Other</b> at bottom of list.<br>Can't find your course? Select <b>Other</b> - for brand new courses only.</p>
+</div>
+
+<script src="/static/script.js"></script>
+<script>
+// Data from app.py - passed by Flask
+const COURSES = {{ courses | tojson }};
+const COMBINATIONS = {{ combinations | tojson }};
+const UNI_NAMES = {
+{% for code, info in courses.items() %}"{{ code }}": "{{ code }}",{% endfor %}
+};
+// Full names - we build from app.py UNIVERSITY_DATA via JS fallback: use code as display, but we have real names in list below
+const UNI_FULL = {
+"UoN":"University of Nairobi - Public","Moi":"Moi University - Public","KU":"Kenyatta University - Public","Egerton":"Egerton University - Public","JKUAT":"Jomo Kenyatta University of Agriculture and Technology - Public","Maseno":"Maseno University - Public","MMUST":"Masinde Muliro University of Science and Technology - Public","DKUT":"Dedan Kimathi University of Technology - Public","Chuka":"Chuka University - Public","TUK":"Technical University of Kenya - Public","TUM":"Technical University of Mombasa - Public","Pwani":"Pwani University - Public","Kisii":"Kisii University - Public","UoE":"University of Eldoret - Public","MMara":"Maasai Mara University - Public","JOOUST":"Jaramogi Oginga Odinga University of Science and Technology - Public","Laikipia":"Laikipia University - Public","SEKU":"South Eastern Kenya University - Public","MUST":"Meru University of Science and Technology - Public","MMU":"Multimedia University of Kenya - Public","Kabianga":"University of Kabianga - Public","Karatina":"Karatina University - Public","Kibabii":"Kibabii University - Public","Rongo":"Rongo University - Public","CUK":"The Co-operative University of Kenya - Public","TTU":"Taita Taveta University - Public","MUT":"Murang'a University of Technology - Public","UoEmbu":"University of Embu - Public","Machakos":"Machakos University - Public","Kirinyaga":"Kirinyaga University - Public","Garissa":"Garissa University - Public","Alupe":"Alupe University - Public","KAFU":"Kaimosi Friends University - Public","TomMboya":"Tom Mboya University - Public","Tharaka":"Tharaka University - Public","Bomet":"Bomet University - Public",
+"Baraton":"University of Eastern Africa, Baraton - Private","CUEA":"Catholic University of Eastern Africa - Private","Daystar":"Daystar University - Private","Scott":"Scott Christian University - Private","USIU":"United States International University - Africa - Private","ANU":"Africa Nazarene University - Private","KeMU":"Kenya Methodist University - Private","SPU":"St. Paul's University - Private","PAC":"Pan Africa Christian University - Private","Strathmore":"Strathmore University - Private","Kabarak":"Kabarak University - Private","MKU":"Mount Kenya University - Private","AIU":"Africa International University - Private","KHEU":"Kenya Highlands Evangelical University - Private","GLUK":"Great Lakes University of Kisumu - Private","KCA":"KCA University - Private","AUA":"Adventist University of Africa - Private","KAGEAST":"KAG EAST University - Private","Umma":"Umma University - Private","PUEA":"Presbyterian University of East Africa - Private","AKU":"Aga Khan University - Private","Kiriri":"Kiriri Women's University of Science and Technology - Private","EAU":"The East African University - Private","Zetech":"Zetech University - Private","Lukenya":"Lukenya University - Private","MUA":"Management University of Africa - Private","Tangaza":"Tangaza University - Private","IUK":"Islamic University of Kenya - Private","Riara":"Riara University - Private","Uzima":"Uzima University - Private","Amref":"Amref International University - Private","Gretsa":"Gretsa University - Private","ILU":"International Leadership University - Private",
+"NDU":"National Defence University-Kenya - Specialised","OUK":"Open University of Kenya - Specialised","NIRU":"National Intelligence Research University - Specialised","TurkanaUC":"Turkana University College - Public","Koitaleel":"Koitaleel Samoei University College - Public","MamaNgina":"Mama Ngina University College - Public","KAIST":"Kenya Advanced Institute of Science and Technology - Public","NyandaruaUC":"Nyandarua University College - Public","KabarnetUC":"Kabarnet University College - Public","MakueniUC":"Makueni University College - Public","Pioneer":"Pioneer International University - Private","Genesis":"Genesis University - Private","Hekima":"Hekima University College - Private","Marist":"Marist International University College - Private","Consolata":"Consolata International University - Private","Outspan":"Outspan Global University - Private",
+"Other":"Other University - New / Not Yet Listed"
+};
+
+function setupSearch(inputId, suggestId, items, onPick){
+  const inp=document.getElementById(inputId), box=document.getElementById(suggestId);
+  inp.addEventListener('input',()=>{
+    const q=inp.value.toLowerCase().trim();
+    const filtered=items.filter(x=>x.label.toLowerCase().includes(q)).slice(0,12);
+    if(!filtered.length){box.style.display='none';return;}
+    box.innerHTML=filtered.map((x,i)=>`<div onclick="pickItem('${inputId}',${i})">${x.label}</div>`).join('');
+    box.style.display='block';
+    box._items=filtered;
+  });
+  inp.addEventListener('focus',()=>{inp.dispatchEvent(new Event('input'));});
+  document.addEventListener('click',(e)=>{if(!e.target.closest('.search-box')) box.style.display='none';});
+}
+window.pickItem=function(inputId, idx){
+  const box=document.getElementById(inputId==='uniSearch'?'uniSuggest':'courseSuggest');
+  const item=box._items[idx];
+  if(inputId==='uniSearch'){
+    document.getElementById('uniSearch').value=item.label;
+    document.getElementById('uniValue').value=item.value;
+    document.getElementById('uniShow').innerHTML='Selected: <b>'+item.label+'</b>';
+  } else {
+    document.getElementById('courseSearch').value=item.label;
+    document.getElementById('courseValue').value=item.value;
+    document.getElementById('courseShow').innerHTML='Selected: <b>'+item.label+'</b>';
+    updateCombination(item.value);
+  }
+  box.style.display='none';
+};
+function updateCombination(course){
+  const wrap=document.getElementById('comboWrap');
+  const sel=document.getElementById('comboSelect');
+  const hidden=document.getElementById('comboHidden');
+  if(COMBINATIONS[course]){
+    wrap.style.display='block';
+    sel.innerHTML=COMBINATIONS[course].map(c=>`<option>${c}</option>`).join('');
+    sel.onchange=()=>{hidden.value=sel.value;};
+    hidden.value=sel.value;
+  } else {
+    wrap.style.display='none';
+    hidden.value='None';
+  }
+}
+const uniItems=Object.keys(UNI_FULL).map(k=>({label:UNI_FULL[k]+' ('+k+')', value:k}));
+const courseItems=(COURSES['UoE']||[]).map(c=>({label:c, value:c}));
+setupSearch('uniSearch','uniSuggest',uniItems);
+setupSearch('courseSearch','courseSuggest',courseItems);
+// Defaults
+document.getElementById('uniSearch').value='University of Eldoret - Public (UoE)';
+document.getElementById('courseSearch').value='BSc Computer Science';
+function showCodes(){
+  const r=document.getElementById('roleSelect').value;
+  document.getElementById('repBox').style.display=r==='class_rep'?'block':'none';
+  document.getElementById('presBox').style.display=r==='president'?'block':'none';
+}
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("/sw.js").then(function(reg){
+      console.log("Student Helper App installed ✅", reg.scope);
+    }).catch(function(err){
+      console.log("App install failed", err);
+    });
+  });
+}
+</script></body></html>

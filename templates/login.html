@@ -1,0 +1,17 @@
+<!DOCTYPE html><html><head><link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#5f27cd">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Student Helper">
+<link rel="apple-touch-icon" href="/static/icon-192.png"><title>Login</title><link rel="stylesheet" href="/static/style.css"></head><body><button class="dark-toggle" onclick="toggleDark()">🌙</button><div class="box"><h1>Welcome Back 👋</h1><form method="POST"><input name="email" placeholder="Email" type="email" required><input name="password" placeholder="Password" type="password" required><button>Login →</button></form><p><a href="/forgot_password">Forgot Password? Reset Here →</a></p><p>New? <a href="/register">Create Account →</a></p></div><script src="/static/script.js"></script><script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("/sw.js").then(function(reg){
+      console.log("Student Helper App installed ✅", reg.scope);
+    }).catch(function(err){
+      console.log("App install failed", err);
+    });
+  });
+}
+</script></body></html>

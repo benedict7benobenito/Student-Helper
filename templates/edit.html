@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html><head><link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#5f27cd">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Student Helper">
+<link rel="apple-touch-icon" href="/static/icon-192.png"><link rel="stylesheet" href="/static/style.css"><title>Edit</title></head>
+<body><div class="container"><div class="card">
+<h3>Edit {{course['code']}}</h3>
+<form method="POST" class="form-grid">
+<input name="code" value="{{course['code']}}" required>
+<input name="name" value="{{course['name']}}" required>
+<input name="lecturer" value="{{course['lecturer']}}" required>
+<select name="day" required>
+<option {{'selected' if course['day']=='Mon'}} value="Mon">Monday</option>
+<option {{'selected' if course['day']=='Tue'}} value="Tue">Tuesday</option>
+<option {{'selected' if course['day']=='Wed'}} value="Wed">Wednesday</option>
+<option {{'selected' if course['day']=='Thu'}} value="Thu">Thursday</option>
+<option {{'selected' if course['day']=='Fri'}} value="Fri">Friday</option>
+</select>
+<input type="time" name="time" value="{{course['time']}}" required>
+<button class="btn-primary">Save Changes</button>
+<a href="/dashboard" style="padding:12px;text-align:center">Cancel</a>
+</form>
+</div></div<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("/sw.js").then(function(reg){
+      console.log("Student Helper App installed ✅", reg.scope);
+    }).catch(function(err){
+      console.log("App install failed", err);
+    });
+  });
+}
+</script></body></html>
