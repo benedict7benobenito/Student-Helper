@@ -11,8 +11,11 @@ GEMINI_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 REP_CODE = "UOE-2026"
 PRESIDENT_CODE = "UNI-EXC-2026"
 DB = "app.db"
-UPLOAD_FOLDER = "uploads"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+UPLOAD_FOLDER = '/tmp/uploads' if os.environ.get('VERCEL') else 'uploads'
+try:
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+except OSError:
+    pass
 ALLOWED_EXT = {"pdf", "docx", "pptx", "jpg", "png", "jpeg"}
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
